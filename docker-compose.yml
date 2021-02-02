@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  bot:
+    env_file: .env
+    image: ericrigsb/pythonfeet
+    working_dir: /usr/src/app
+    volumes: 
+      - ./app:/usr/src/app
+    networks:
+      - host
+    command: bash -c "pip install -r requirements.txt && python3 -u premiere.py"
+networks:
+  host:
