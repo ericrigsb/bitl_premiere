@@ -3,47 +3,50 @@ import os
 import re
 import schedule
 import time
+import discord
+from discord.ext import tasks
+import asyncio
 
-class Premiere:
+# Environment
+feedurl = os.environ['FEED']
+listenurl = os.environ['LISTEN']
+token = os.environ['TOKEN']
+channel_name = os.environ['PREMIERE_CHANNEL']
 
-    def __init__(self):
-        feedurl = os.environ['FEED']
-        self.feedurl = feedurl
-        listenurl = os.environ['LISTEN']
-        self.listenurl = listenurl
-        
-    def job(self):
-        feed = feedparser.parse(self.feedurl)
-        entry = feed.entries[0]
-        lastid = open("lastid", "r").read()
-        self.lastid = lastid
-        currentid = entry.id
-        self.currentid = currentid
-        episodeno = entry.itunes_episode
-        title = entry.title
-        self.title = title
-        summary = re.sub("<.*?>", "", entry.summary)
-        self.summary = summary
-        announce = 'New Beers in The Lot Episode!'
-        self.announce = announce
-        episode = 'Episode ' + episodeno + '-' + title
-        self.episode = episode
-        if self.currentid != self.lastid:
-            print (self.announce)
-            print (self.episode)
-            print (self.summary)
-            open("lastid", "w").write(self.currentid)
-            print (self.listenurl)
-        else:
-            print ('Up to date')
+# Setup Discord
+bot = discord.Client()
 
-    def sched(self):
-        schedule.every(1).minutes.do(self.job)
+# Login to Discord
+@bot.event
+async def on_ready():
+    print('Logged in as')
+    print(bot.user.name)
+    print(bot.user.id)
+    print('------')
+    job.start()
 
-        while True:
-            schedule.run_pending()
-            time.sleep(1)
+@tasks.loop(seconds=60)
+async def job():
+    # Setup feed and announcements
+    feed = feedparser.parse(feedurl)
+    entry = feed.entries[0]
+    lastid = open("lastid", "r").read()
+    currentid = entry.id
+    episodeno = entry.itunes_episode
+    title = entry.title
+    summary = re.sub("<.*?>", "", entry.summary)
+    announce = 'New Beers in The Lot Episode!' + '\n' + \
+        'Episode ' + episodeno + '-' + title + '\n' + \
+        summary + '\n' + \
+        listenurl 
+    # Get the Discord channel
+    channel = discord.utils.get(bot.get_all_channels(), name=channel_name)
+    if currentid != lastid:
+        print (announce)
+        await channel.send(announce)
+        open("lastid", "w").write(currentid)
+    else:
+        print ('Up to date')
 
-premierebot = Premiere()
-
-premierebot.sched()
+# Run the bot
+bot.run(token)
