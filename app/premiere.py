@@ -47,5 +47,9 @@ async def job():
     else:
         print ('Up to date')
 
+@job.before_loop
+async def before():
+    await bot.wait_until_ready()
+
 # Run the bot
 bot.run(token)
