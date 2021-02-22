@@ -41,7 +41,6 @@ async def job():
     # Announce new episode
     if currentid != lastid:
         print (announce)
-        print (channel)
         await channel.send(announce)
         open("lastid", "w").write(currentid)
     else:
