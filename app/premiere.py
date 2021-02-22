@@ -33,9 +33,8 @@ async def job():
     episodeno = entry.itunes_episode
     title = entry.title
     summary = re.sub("<.*?>", "", entry.summary)
-    announce = 'New Beers in The Lot Episode!' + '\n' + \
-        'Episode ' + episodeno + '-' + title + '\n' + \
-        summary + '\n' + \
+    announce = 'Episode ' + episodeno + ' - ' + title + '\n' + '\n' + \
+        summary + '\n' + '\n' + \
         listenurl 
     # Get the Discord channel
     channel = discord.utils.get(bot.get_all_channels(), name=channel_name)
