@@ -1,8 +1,6 @@
 import feedparser
 import os
 import re
-import schedule
-import time
 import discord
 from discord.ext import tasks
 import asyncio
@@ -41,6 +39,7 @@ async def job():
         listenurl 
     # Get the Discord channel
     channel = discord.utils.get(bot.get_all_channels(), name=channel_name)
+    # Announce new episode
     if currentid != lastid:
         print (announce)
         await channel.send(announce)
