@@ -29,10 +29,10 @@ async def job():
     feed = feedparser.parse(feedurl)
     entry = feed.entries[0]
     lastid = open("lastid", "r").read()
-    currentid = entry.id
+    currentid = entry.guid
     episodeno = entry.itunes_episode
     title = entry.title
-    summary = re.sub("<.*?>", "", entry.summary)
+    summary = re.sub("<.*?>", "", entry.description)
     announce = 'Episode ' + episodeno + ' - ' + title + '\n' + '\n' + \
         summary + '\n' + '\n' + \
         listenurl 
