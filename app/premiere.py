@@ -34,8 +34,6 @@ async def job():
     # Setup feed and announcements
     feed = feedparser.parse(feedurl)
     entry = feed.entries[0]
-    lastid = open("lastid", "r").read()
-    currentid = entry.guid
     episodeno = entry.itunes_episode
     title = entry.title
     summary = re.sub("<.*?>", "", entry.description)
@@ -48,7 +46,6 @@ async def job():
     if restartcheck.total_seconds()>60:
         print (jobtime,announce)
         await channel.send(announce)
-        open("lastid", "w").write(currentid)
     else:
         print (jobtime,'Up to date')
 
