@@ -4,6 +4,10 @@ import re
 import discord
 from discord.ext import tasks
 import asyncio
+from datetime import datetime
+
+# time stamping
+starttime = datetime.now()
 
 # Environment
 feedurl = os.environ['FEED']
@@ -25,6 +29,8 @@ async def on_ready():
 
 @tasks.loop(seconds=60)
 async def job():
+    jobtime = datetime.now()
+    restartcheck = jobtime - starttime
     # Setup feed and announcements
     feed = feedparser.parse(feedurl)
     entry = feed.entries[0]
@@ -39,12 +45,12 @@ async def job():
     # Get the Discord channel
     channel = discord.utils.get(bot.get_all_channels(), name=channel_name)
     # Announce new episode
-    if currentid != lastid:
-        print (announce)
+    if restartcheck.total_seconds()>60:
+        print (jobtime,announce)
         await channel.send(announce)
         open("lastid", "w").write(currentid)
     else:
-        print ('Up to date')
+        print (jobtime,'Up to date')
 
 @job.before_loop
 async def before():
