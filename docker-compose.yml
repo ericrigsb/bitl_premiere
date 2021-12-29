@@ -6,6 +6,7 @@ services:
     working_dir: /usr/src/app
     volumes: 
       - ./app:/usr/src/app
+      - ./lastid:/usr/lastid
     networks:
       - host
     command: bash -c "pip install -r requirements.txt && python3 -u premiere.py"
