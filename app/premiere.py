@@ -6,9 +6,6 @@ from discord.ext import tasks
 import asyncio
 from datetime import datetime
 
-# Timestamp
-timestamp = datetime.now()
-
 # Environment
 feedurl = os.environ['FEED']
 listenurl = os.environ['LISTEN']
@@ -24,7 +21,7 @@ async def on_ready():
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
-    print(timestamp)
+    print(datetime.now())
     print('------')
     job.start()
 
@@ -45,11 +42,11 @@ async def job():
     channel = discord.utils.get(bot.get_all_channels(), name=channel_name)
     # Announce new episode
     if currentid != lastid:
-        print (timestamp,announce)
+        print (datetime.now(),announce)
         await channel.send(announce)
         open("../../lastid", "w").write(currentid)
     else:
-        print ('Up to date',timestamp)
+        print ('Up to date',datetime.now())
 
 @job.before_loop
 async def before():
