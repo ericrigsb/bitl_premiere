@@ -8,7 +8,6 @@ from datetime import datetime
 
 # Environment
 feedurl = os.environ['FEED']
-listenurl = os.environ['LISTEN']
 token = os.environ['TOKEN']
 channel_name = os.environ['PREMIERE_CHANNEL']
 
