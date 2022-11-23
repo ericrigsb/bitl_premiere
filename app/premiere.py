@@ -12,7 +12,7 @@ token = os.environ['TOKEN']
 channel_name = os.environ['PREMIERE_CHANNEL']
 
 # Setup Discord
-bot = discord.Client()
+bot = discord.Client(intents=discord.Intents.default())
 
 # Login to Discord
 @bot.event
