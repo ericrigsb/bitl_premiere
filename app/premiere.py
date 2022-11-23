@@ -24,7 +24,7 @@ async def on_ready():
     print('------')
     job.start()
 
-@tasks.loop(seconds=60)
+@tasks.loop(seconds=900)
 async def job():
     # Setup feed and announcements
     feed = feedparser.parse(feedurl)
