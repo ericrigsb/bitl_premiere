@@ -17,4 +17,4 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
-        script: git pull
+        script: pwd
