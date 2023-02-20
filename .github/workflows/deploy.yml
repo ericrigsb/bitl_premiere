@@ -1,20 +1,22 @@
 name: Deploy
 
-on: [push]
+on:
+  push:
+    branches: [main]
 
 jobs:
-  build:
+  deploy:
 
     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v1
-
-    - name: Executing remote command
+    - name: Deploy App
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
         USERNAME: ${{ secrets.USERNAME }}
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
-        script: pwd
+        script: |
+          cd projects/bitl_premiere
+          git pull
+          docker compose restart
