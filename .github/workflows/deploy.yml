@@ -6,9 +6,7 @@ on:
 
 jobs:
   deploy:
-
     runs-on: ubuntu-latest
-
     - name: Deploy App
       uses: appleboy/ssh-action@master
       with:
