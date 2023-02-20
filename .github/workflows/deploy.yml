@@ -5,8 +5,9 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    steps:
     - name: Deploy App
       uses: appleboy/ssh-action@master
       with:
