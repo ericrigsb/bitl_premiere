@@ -32,11 +32,9 @@ async def job():
     lastid = open("../../lastid", "r").read()
     currentid = entry.guid
     episodeno = entry.itunes_episode
-    episodeurl = entry.link
+    episodeurl = "https://beersinthelot.com/listen"
     title = entry.title
-    summary = re.sub("<.*?>", "", entry.description)
     announce = 'Episode ' + episodeno + ' - ' + title + '\n' + '\n' + \
-        summary + '\n' + '\n' + \
         episodeurl 
     # Get the Discord channel
     channel = discord.utils.get(bot.get_all_channels(), name=channel_name)
