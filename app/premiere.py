@@ -32,7 +32,7 @@ async def job():
     lastid = open("../../lastid", "r").read()
     currentid = entry.guid
     episodeno = entry.itunes_episode
-    episodeurl = "https://beersinthelot.com/listen"
+    episodeurl = "https://beersinthelot.com"
     title = entry.title
     announce = 'Episode ' + episodeno + ' - ' + title + '\n' + '\n' + \
         episodeurl 
