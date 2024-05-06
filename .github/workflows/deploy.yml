@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Deploy App
-      uses: appleboy/ssh-action@master
+      uses: Core2Goal/ssh-action@v1
       with:
         host: ${{ secrets.HOST }}
-        USERNAME: ${{ secrets.USERNAME }}
-        PORT: ${{ secrets.PORT }}
-        KEY: ${{ secrets.SSHKEY }}
+        username: ${{ secrets.USERNAME }}
+        port: ${{ secrets.PORT }}
+        private_key: ${{ secrets.SSHKEY }}
         script_stop: true
         script: |
           cd projects/bitl_premiere
