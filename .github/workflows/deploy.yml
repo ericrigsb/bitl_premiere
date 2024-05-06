@@ -15,7 +15,6 @@ jobs:
         username: ${{ secrets.USERNAME }}
         port: ${{ secrets.PORT }}
         private_key: ${{ secrets.SSHKEY }}
-        script_stop: true
         script: |
           cd projects/bitl_premiere
           git pull
