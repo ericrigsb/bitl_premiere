@@ -35,7 +35,7 @@ async def job():
     episodeurl = "https://beersinthelot.com"
     title = entry.title
     announce = 'Episode ' + episodeno + ' - ' + title + '\n' + '\n' + \
-        episodeurl 
+        episodeurl
     # Get the Discord channel
     channel = discord.utils.get(bot.get_all_channels(), name=channel_name)
     # Announce new episode
